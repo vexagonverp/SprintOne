@@ -7,7 +7,7 @@ Import project using maven with yours IDE
 Config database:
 `src/main/resources/application.properties`
 
-Remove `spring.jpa.hibernate.ddl-auto = update` from `application.properties` if you don't want to auto generate table.\
+Remove `spring.jpa.hibernate.ddl-auto = update` from `application.properties` if you don't want to auto generate table.
 
 ### Default settings
 
