@@ -3,7 +3,7 @@ package com.net.SprintOne.model;
 import javax.persistence.*;
 import java.io.Serializable;
 
-@Entity
+@Entity(name="User")
 @Table(name="users")
 public class User implements Serializable {
     @Id
