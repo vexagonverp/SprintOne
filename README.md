@@ -5,17 +5,17 @@ Import project using maven with yours IDE
 ## Database
 
 Config database:
-'src/main/resources/application.properties'
+`src/main/resources/application.properties`
 
-remove 'spring.jpa.hibernate.ddl-auto = update' from 'application.properties' if you don't want to auto generate table.
+Remove `spring.jpa.hibernate.ddl-auto = update` from `application.properties` if you don't want to auto generate table.
 
-###Default settings
+### Default settings
 
-Database name:test_db
-User:postgres
-Password:password
+Database name:`test_db`
+User:`postgres`
+Password:`password`
 
-##References
+## References
 
 https://spring.io/guides/gs/accessing-data-jpa/
 https://www.baeldung.com/hibernate-one-to-many
