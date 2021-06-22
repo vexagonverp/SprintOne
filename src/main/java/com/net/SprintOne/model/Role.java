@@ -9,7 +9,14 @@ public class Role implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column(
+            nullable = false
+    )
     private String name;
+
+    @ManyToOne
+    @JoinColumn(name="roles_id", nullable=false)
+    private User_Role users_roles;
 
     public int getId() {
         return id;

@@ -1,5 +1,7 @@
 package com.net.SprintOne.model;
 
+import com.sun.istack.NotNull;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -9,7 +11,14 @@ public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column(
+            nullable = false
+    )
     private String name;
+
+    @ManyToOne
+    @JoinColumn(name="user_id", nullable=false)
+    private User_Role users_roles;
 
     public int getId() {
         return id;
