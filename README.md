@@ -19,4 +19,5 @@ Password:`password`
 
 https://spring.io/guides/gs/accessing-data-jpa/ \
 https://www.baeldung.com/hibernate-one-to-many \
-https://thorben-janssen.com/spring-data-jpa-query-annotation/
+https://thorben-janssen.com/spring-data-jpa-query-annotation/ \
+https://www.baeldung.com/spring-data-jpa-query
