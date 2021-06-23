@@ -9,34 +9,48 @@ public class User_Role implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @Column(
+            name="id",
+            updatable = false
+    )
+    private long id;
 
-    @OneToMany(mappedBy="users_roles")
-    private Set<User> users;
-    @OneToMany(mappedBy="users_roles")
-    private Set<Role> roles;
 
-    public int getId() {
+    @ManyToOne
+    @JoinColumn(
+            name="user_id",
+            nullable=false
+    )
+    private User users_roles;
+
+    @ManyToOne
+    @JoinColumn(
+            name="role_id",
+            nullable=false
+    )
+    private Role roles_users;
+
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public Set<User> getUsers() {
-        return users;
+    public User getUsers_roles() {
+        return users_roles;
     }
 
-    public void setUsers(Set<User> users) {
-        this.users = users;
+    public void setUsers_roles(User users_roles) {
+        this.users_roles = users_roles;
     }
 
-    public Set<Role> getRoles() {
-        return roles;
+    public Role getRoles_users() {
+        return roles_users;
     }
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
+    public void setRoles_users(Role roles_users) {
+        this.roles_users = roles_users;
     }
 }

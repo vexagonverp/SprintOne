@@ -2,27 +2,33 @@ package com.net.SprintOne.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
 @Entity(name="Role")
 @Table(name="roles")
 public class Role implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
     @Column(
+            name="id",
+            updatable = false
+    )
+    private long id;
+    @Column(
+            name = "name",
+            length = 25,
             nullable = false
     )
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name="roles_id", nullable=false)
-    private User_Role users_roles;
+    @OneToMany(mappedBy="roles_users")
+    private Set<User_Role> role_id;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -33,5 +39,12 @@ public class Role implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
-    
+
+    public Set<User_Role> getRole_id() {
+        return role_id;
+    }
+
+    public void setRole_id(Set<User_Role> role_id) {
+        this.role_id = role_id;
+    }
 }

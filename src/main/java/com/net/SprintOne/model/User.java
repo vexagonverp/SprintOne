@@ -1,30 +1,60 @@
 package com.net.SprintOne.model;
 
-import com.sun.istack.NotNull;
-
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
+import java.util.Set;
 
 @Entity(name="User")
-@Table(name="users")
+@Table(
+        name="users",
+        uniqueConstraints = {
+                @UniqueConstraint(name="email_unique",columnNames = "email")
+        }
+)
 public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
     @Column(
+            name="id",
+            updatable = false
+    )
+    private long id;
+    @Column(
+            name = "name",
+            length = 25,
             nullable = false
     )
     private String name;
+    @Column(
+            name = "email",
+            length = 25,
+            nullable = false
+    )
+    private String email;
 
-    @ManyToOne
-    @JoinColumn(name="user_id", nullable=false)
-    private User_Role users_roles;
+    @Column(
+            name = "created_at",
+            nullable = false
+    )
+    private Date createdAt;
 
-    public int getId() {
+    @Column(
+            name = "updated_at",
+            nullable = false
+    )
+    private Date updatedAt;
+
+
+
+    @OneToMany(mappedBy="users_roles")
+    private Set<User_Role> users_id;
+
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -36,4 +66,35 @@ public class User implements Serializable {
         this.name = name;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public Set<User_Role> getUsers_id() {
+        return users_id;
+    }
+
+    public void setUsers_id(Set<User_Role> users_id) {
+        this.users_id = users_id;
+    }
 }

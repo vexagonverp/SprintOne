@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 import java.util.Set;
 
-public interface UsersRolesRepository extends JpaRepository<User_Role, Integer> {
+public interface UsersRolesRepository extends JpaRepository<User_Role, Long> {
 
 }
