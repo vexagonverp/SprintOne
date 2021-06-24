@@ -1,5 +1,7 @@
 package com.net.SprintOne.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Set;
@@ -25,6 +27,7 @@ public class Role implements Serializable {
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY
     )
+    @JsonIgnore //rubber band fix for now
     private Set<User_Role> role_id;
 
     public long getId() {

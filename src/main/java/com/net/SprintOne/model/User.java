@@ -1,5 +1,7 @@
 package com.net.SprintOne.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -51,6 +53,7 @@ public class User implements Serializable {
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY
     )
+    @JsonIgnore //rubber band fix for now
     private Set<User_Role> users_id;
 
     public long getId() {

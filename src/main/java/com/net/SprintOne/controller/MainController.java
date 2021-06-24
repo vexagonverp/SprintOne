@@ -40,7 +40,7 @@ public class MainController {
     public List<User> getList(@RequestParam(name="name", required=false, defaultValue="admin") String name){
         List<User> user = up.findByName(name);
         user.forEach((User temp) ->{
-            temp.setUsers_id(null);
+            //temp.setUsers_id(null);
         });
         return user;
     }
