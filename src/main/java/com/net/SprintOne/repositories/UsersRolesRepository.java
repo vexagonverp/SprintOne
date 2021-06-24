@@ -7,5 +7,4 @@ import java.util.List;
 import java.util.Set;
 
 public interface UsersRolesRepository extends JpaRepository<User_Role, Long> {
-
 }

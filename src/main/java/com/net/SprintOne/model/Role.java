@@ -16,12 +16,15 @@ public class Role implements Serializable {
     private long id;
     @Column(
             name = "name",
-            length = 25,
+            length = 50,
             nullable = false
     )
     private String name;
 
-    @OneToMany(mappedBy="roles_users")
+    @OneToMany(mappedBy="roles_users",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY
+    )
     private Set<User_Role> role_id;
 
     public long getId() {
@@ -46,5 +49,11 @@ public class Role implements Serializable {
 
     public void setRole_id(Set<User_Role> role_id) {
         this.role_id = role_id;
+    }
+
+    public Role(){}
+
+    public Role(String name) {
+        this.name = name;
     }
 }

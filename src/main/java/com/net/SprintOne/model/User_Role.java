@@ -19,14 +19,20 @@ public class User_Role implements Serializable{
     @ManyToOne
     @JoinColumn(
             name="user_id",
-            nullable=false
+            nullable=false,
+            foreignKey = @ForeignKey(
+            name = "user_userId_fk"
+        )
     )
     private User users_roles;
 
     @ManyToOne
     @JoinColumn(
             name="role_id",
-            nullable=false
+            nullable=false,
+            foreignKey = @ForeignKey(
+                    name = "role_roleId_fk"
+            )
     )
     private Role roles_users;
 
@@ -51,6 +57,11 @@ public class User_Role implements Serializable{
     }
 
     public void setRoles_users(Role roles_users) {
+        this.roles_users = roles_users;
+    }
+    public User_Role(){}
+    public User_Role(User users_roles, Role roles_users) {
+        this.users_roles = users_roles;
         this.roles_users = roles_users;
     }
 }

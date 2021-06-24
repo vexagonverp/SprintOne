@@ -22,13 +22,13 @@ public class User implements Serializable {
     private long id;
     @Column(
             name = "name",
-            length = 25,
+            length = 50,
             nullable = false
     )
     private String name;
     @Column(
             name = "email",
-            length = 25,
+            length = 50,
             nullable = false
     )
     private String email;
@@ -47,7 +47,10 @@ public class User implements Serializable {
 
 
 
-    @OneToMany(mappedBy="users_roles")
+    @OneToMany(mappedBy="users_roles",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY
+    )
     private Set<User_Role> users_id;
 
     public long getId() {
@@ -96,5 +99,12 @@ public class User implements Serializable {
 
     public void setUsers_id(Set<User_Role> users_id) {
         this.users_id = users_id;
+    }
+    public User(){}
+    public User(String name, String email, Date createdAt, Date updatedAt) {
+        this.name = name;
+        this.email = email;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
 }
