@@ -28,6 +28,7 @@ public class Role implements Serializable {
             fetch = FetchType.LAZY,
             mappedBy = "roles"
     )
+    @JsonIgnore
     private Set<User> users;
 
     public long getId() {
@@ -44,6 +45,14 @@ public class Role implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
     }
 
     public Role(){}

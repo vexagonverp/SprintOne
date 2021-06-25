@@ -54,10 +54,11 @@ public class User implements Serializable {
             fetch = FetchType.LAZY
     )
     @JoinTable(
-            name = "users_roles", //Tạo ra một join Table tên là "address_person"
-            joinColumns = @JoinColumn(name = "users_id"),  // TRong đó, khóa ngoại chính là address_id trỏ tới class hiện tại (Address)
-            inverseJoinColumns = @JoinColumn(name = "roles_id") //Khóa ngoại thứ 2 trỏ tới thuộc tính ở dưới (Person)
+            name = "users_roles",
+            joinColumns = @JoinColumn(name = "users_id"),
+            inverseJoinColumns = @JoinColumn(name = "roles_id")
     )
+    @JsonIgnore
     private Set<Role> roles;
 
     public long getId() {

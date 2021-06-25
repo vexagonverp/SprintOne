@@ -1,5 +1,7 @@
 package com.net.SprintOne.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity(name="User_Role")
@@ -31,6 +33,30 @@ public class User_Role {
             )
     )
     private Role roles;
+
+    public User_RoleKey getId() {
+        return id;
+    }
+
+    public void setId(User_RoleKey id) {
+        this.id = id;
+    }
+
+    public User getUsers() {
+        return users;
+    }
+
+    public void setUsers(User users) {
+        this.users = users;
+    }
+
+    public Role getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Role roles) {
+        this.roles = roles;
+    }
 
     public User_Role(){}
     public User_Role(User users, Role roles) {
