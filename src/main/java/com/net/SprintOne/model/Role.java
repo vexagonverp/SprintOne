@@ -23,12 +23,12 @@ public class Role implements Serializable {
     )
     private String name;
 
-    @OneToMany(mappedBy="roles_users",
+    @ManyToMany(
             cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY
+            fetch = FetchType.LAZY,
+            mappedBy = "roles"
     )
-    @JsonIgnore //rubber band fix for now
-    private Set<User_Role> role_id;
+    private Set<User> users;
 
     public long getId() {
         return id;
@@ -44,14 +44,6 @@ public class Role implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Set<User_Role> getRole_id() {
-        return role_id;
-    }
-
-    public void setRole_id(Set<User_Role> role_id) {
-        this.role_id = role_id;
     }
 
     public Role(){}

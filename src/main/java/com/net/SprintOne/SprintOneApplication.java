@@ -9,6 +9,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @SpringBootApplication
 public class SprintOneApplication {
@@ -21,18 +23,22 @@ public class SprintOneApplication {
 	CommandLineRunner commandLineRunner(
 			UserRepository userRepository,
 			RoleRepository roleRepository,
-			UsersRolesRepository usersRolesRepository) {
+			UserRoleRepository userRoleRepository
+			) {
 		return args -> {
 			Faker faker = new Faker();
 			Date date = new Date();
+
 			for(int i = 0;i<10;i++) {
 				Role role = new Role(faker.job().title());
 				User user = new User(faker.name().fullName(), faker.name().username()+"@gmail.com", date, date);
-				User_Role user_role = new User_Role(user, role);
+				Set<Role> roles = new HashSet<Role>();
+				roles.add(role);
+				user.setRoles(roles);
 				userRepository.save(user);
 				roleRepository.save(role);
-				usersRolesRepository.save(user_role);
 			}
+
 		};
 	}
 

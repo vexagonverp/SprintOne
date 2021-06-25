@@ -49,12 +49,16 @@ public class User implements Serializable {
 
 
 
-    @OneToMany(mappedBy="users_roles",
+    @ManyToMany(
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY
     )
-    @JsonIgnore //rubber band fix for now
-    private Set<User_Role> users_id;
+    @JoinTable(
+            name = "users_roles", //Tạo ra một join Table tên là "address_person"
+            joinColumns = @JoinColumn(name = "users_id"),  // TRong đó, khóa ngoại chính là address_id trỏ tới class hiện tại (Address)
+            inverseJoinColumns = @JoinColumn(name = "roles_id") //Khóa ngoại thứ 2 trỏ tới thuộc tính ở dưới (Person)
+    )
+    private Set<Role> roles;
 
     public long getId() {
         return id;
@@ -96,13 +100,14 @@ public class User implements Serializable {
         this.updatedAt = updatedAt;
     }
 
-    public Set<User_Role> getUsers_id() {
-        return users_id;
+    public Set<Role> getRoles() {
+        return roles;
     }
 
-    public void setUsers_id(Set<User_Role> users_id) {
-        this.users_id = users_id;
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
+
     public User(){}
     public User(String name, String email, Date createdAt, Date updatedAt) {
         this.name = name;
