@@ -1,67 +1,40 @@
 package com.net.SprintOne.model;
+
 import javax.persistence.*;
-import java.io.Serializable;
-import java.util.Set;
 
 @Entity(name="User_Role")
-@Table(name="users_roles")
-public class User_Role implements Serializable{
+@Table(name = "users_roles")
+public class User_Role {
 
-    @Id
+    @EmbeddedId
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(
             name="id",
             updatable = false
     )
-    private long id;
-
+    private User_RoleKey id;
 
     @ManyToOne
-    @JoinColumn(
-            name="user_id",
-            nullable=false,
+    @MapsId("users_id")
+    @JoinColumn(name = "users_id",
             foreignKey = @ForeignKey(
             name = "user_userId_fk"
-        )
+            )
     )
-    private User users_roles;
+    private User users;
 
     @ManyToOne
-    @JoinColumn(
-            name="role_id",
-            nullable=false,
+    @MapsId("roles_id")
+    @JoinColumn(name = "roles_id",
             foreignKey = @ForeignKey(
                     name = "role_roleId_fk"
             )
     )
-    private Role roles_users;
+    private Role roles;
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public User getUsers_roles() {
-        return users_roles;
-    }
-
-    public void setUsers_roles(User users_roles) {
-        this.users_roles = users_roles;
-    }
-
-    public Role getRoles_users() {
-        return roles_users;
-    }
-
-    public void setRoles_users(Role roles_users) {
-        this.roles_users = roles_users;
-    }
     public User_Role(){}
-    public User_Role(User users_roles, Role roles_users) {
-        this.users_roles = users_roles;
-        this.roles_users = roles_users;
+    public User_Role(User users, Role roles) {
+        this.users = users;
+        this.roles = roles;
     }
 }
