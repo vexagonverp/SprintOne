@@ -12,5 +12,6 @@ import java.util.List;
 public interface UserRoleRepository extends JpaRepository<User_Role, User_RoleKey> {
 
     @Query("FROM User_Role WHERE users.id =:num")
-    List<User_Role> findById(long num);
+    public List<User_Role> findById(long num);
+
 }
