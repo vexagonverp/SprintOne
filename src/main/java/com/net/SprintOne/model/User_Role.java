@@ -16,6 +16,7 @@ public class User_Role {
     )
     private User_RoleKey id;
 
+    @SuppressWarnings("JpaModelReferenceInspection")
     @ManyToOne
     @MapsId("users_id")
     @JoinColumn(name = "users_id",
@@ -25,6 +26,7 @@ public class User_Role {
     )
     private User users;
 
+    @SuppressWarnings("JpaModelReferenceInspection")
     @ManyToOne
     @MapsId("roles_id")
     @JoinColumn(name = "roles_id",
