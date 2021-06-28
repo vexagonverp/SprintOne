@@ -7,6 +7,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Profile;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -19,6 +20,7 @@ public class SprintOneApplication {
 		SpringApplication.run(SprintOneApplication.class, args);
 	}
 
+	@Profile("!test")
 	@Bean
 	CommandLineRunner commandLineRunner(
 			UserRepository userRepository,
@@ -32,7 +34,7 @@ public class SprintOneApplication {
 			for(int i = 0;i<10;i++) {
 				Role role = new Role(faker.job().title());
 				User user = new User(faker.name().fullName(), faker.name().username()+"@gmail.com", date, date);
-				Set<Role> roles = new HashSet<Role>();
+				Set<Role> roles = new HashSet<>();
 				roles.add(role);
 				user.setRoles(roles);
 				userRepository.save(user);
