@@ -46,7 +46,7 @@ public class JPAUnitTest {
     @Test
     public void userStoring() {
         Date date = new Date();
-        User user = userRepository.save(new User("admin","admin@gmail.com",date,date));
+        User user = userRepository.save(new User("admin","admin@gmail.com",date));
 
         assertThat(user).hasFieldOrPropertyWithValue("name", "admin");
         assertThat(user).hasFieldOrPropertyWithValue("email", "admin@gmail.com");

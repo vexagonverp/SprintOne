@@ -2,10 +2,15 @@ package com.net.SprintOne.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.fasterxml.jackson.databind.ser.FilterProvider;
+import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
+import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import com.net.SprintOne.model.*;
 import com.net.SprintOne.repositories.*;
+import com.net.SprintOne.service.serviceImpl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.DateFormat;
@@ -20,7 +25,7 @@ public class MainController {
     @Autowired
     private ObjectMapper mapper;
     @Autowired
-    private UserRepository up;
+    private UserServiceImpl userService;
     @Autowired
     private RoleRepository rp;
     @Autowired
@@ -41,8 +46,8 @@ public class MainController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public List<User> findByNameUser(@RequestParam(name="name", required=false, defaultValue="all") String name){
-        List<User> users = up.findByName(name);
-        if(name.equals("all"))users=up.findAll();
+        List<User> users = userService.findByName(name);
+        if(name.equals("all"))users= userService.findAll();
         return users;
     }
 
@@ -62,5 +67,24 @@ public class MainController {
         List<User_Role> users_roles = urp.findById(Long.parseLong(name));
         if(name.equals("0"))users_roles=urp.findAll();
         return users_roles;
+    }
+
+    @RequestMapping(value = "/list/user/exclude", method= RequestMethod.GET)
+    @ResponseBody
+    MappingJacksonValue getAllUsers(){
+        String[] arrayOfStrings = {"name","email"};
+        SimpleBeanPropertyFilter simpleBeanPropertyFilter =
+                SimpleBeanPropertyFilter.serializeAllExcept("name");
+        simpleBeanPropertyFilter =
+                SimpleBeanPropertyFilter.filterOutAllExcept(arrayOfStrings);
+
+        FilterProvider filterProvider = new SimpleFilterProvider()
+                .addFilter("userFilter", simpleBeanPropertyFilter);
+
+        List<User> userList = userService.findAll();
+        MappingJacksonValue mappingJacksonValue = new MappingJacksonValue(userList);
+        mappingJacksonValue.setFilters(filterProvider);
+
+        return mappingJacksonValue;
     }
 }

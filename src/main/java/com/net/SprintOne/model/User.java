@@ -1,5 +1,6 @@
 package com.net.SprintOne.model;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -14,6 +15,7 @@ import java.util.Set;
                 @UniqueConstraint(name="email_unique",columnNames = "email")
         }
 )
+@JsonFilter("userFilter")
 public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,12 +24,15 @@ public class User implements Serializable {
             updatable = false
     )
     private long id;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
+    private Employee employeeId;
     @Column(
             name = "name",
             length = 50,
             nullable = false
     )
     private String name;
+
     @Column(
             name = "email",
             length = 50,
@@ -46,6 +51,11 @@ public class User implements Serializable {
             nullable = false
     )
     private Date updatedAt;
+    @Column(
+            name = "activate",
+            nullable = false
+    )
+    private boolean activate;
 
 
 
@@ -67,6 +77,14 @@ public class User implements Serializable {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public Employee getEmployeeId() {
+        return employeeId;
+    }
+
+    public void setEmployeeId(Employee employeeId) {
+        this.employeeId = employeeId;
     }
 
     public String getName() {
@@ -101,6 +119,14 @@ public class User implements Serializable {
         this.updatedAt = updatedAt;
     }
 
+    public boolean isActivate() {
+        return activate;
+    }
+
+    public void setActivate(boolean activate) {
+        this.activate = activate;
+    }
+
     public Set<Role> getRoles() {
         return roles;
     }
@@ -110,10 +136,10 @@ public class User implements Serializable {
     }
 
     public User(){}
-    public User(String name, String email, Date createdAt, Date updatedAt) {
+    public User(String name, String email, Date updatedAt) {
         this.name = name;
         this.email = email;
-        this.createdAt = createdAt;
+        this.createdAt = new Date();
         this.updatedAt = updatedAt;
     }
 }
