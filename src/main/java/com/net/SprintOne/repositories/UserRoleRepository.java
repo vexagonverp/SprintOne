@@ -1,7 +1,5 @@
 package com.net.SprintOne.repositories;
 
-import com.net.SprintOne.model.Role;
-import com.net.SprintOne.model.User;
 import com.net.SprintOne.model.User_Role;
 import com.net.SprintOne.model.User_RoleKey;
 import org.springframework.data.jpa.repository.JpaRepository;

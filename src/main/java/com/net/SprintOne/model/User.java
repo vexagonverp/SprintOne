@@ -1,6 +1,5 @@
 package com.net.SprintOne.model;
 
-import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -15,7 +14,6 @@ import java.util.Set;
                 @UniqueConstraint(name="email_unique",columnNames = "email")
         }
 )
-@JsonFilter("userFilter")
 public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,7 +22,7 @@ public class User implements Serializable {
             updatable = false
     )
     private long id;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
+    @OneToOne( mappedBy = "user")
     private Employee employeeId;
     @Column(
             name = "name",
@@ -60,7 +58,7 @@ public class User implements Serializable {
 
 
     @ManyToMany(
-            cascade = CascadeType.ALL,
+            cascade = { CascadeType.ALL},
             fetch = FetchType.LAZY
     )
     @JoinTable(

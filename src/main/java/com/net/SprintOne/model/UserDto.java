@@ -1,23 +1,30 @@
 package com.net.SprintOne.model;
 
-import com.fasterxml.jackson.annotation.JsonView;
-import com.net.SprintOne.model.Role;
-import com.sun.xml.bind.v2.schemagen.episode.SchemaBindings;
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.fasterxml.jackson.annotation.JsonFilter;
 
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
+@JsonFilter("userFilter")
 public class UserDto implements Serializable {
 
+    private long id;
     private String name;
     private String email;
     private Date createdAt;
     private Date updatedAt;
     private boolean activate;
-    private Set<Role> roles;
+    private EmployeeDto employeeId;
+    private Set<RoleDto> roles;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -59,24 +66,28 @@ public class UserDto implements Serializable {
         this.activate = activate;
     }
 
-    public Set<Role> getRoles() {
+    public EmployeeDto getEmployeeId() {
+        return employeeId;
+    }
+
+    public void setEmployeeId(EmployeeDto employeeId) {
+        this.employeeId = employeeId;
+    }
+
+    public Set<RoleDto> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<Role> roles) {
+    public void setRoles(Set<RoleDto> roles) {
         this.roles = roles;
     }
+
     public UserDto(){};
-    public UserDto(String name, String email, Date updatedAt, Set<Role> roles) {
+    public UserDto(String name, String email, Date updatedAt) {
         this.name = name;
         this.email = email;
         this.createdAt = new Date();
         this.updatedAt = updatedAt;
-        this.activate = false;
-        this.roles = roles;
     }
-
-
-
 
 }

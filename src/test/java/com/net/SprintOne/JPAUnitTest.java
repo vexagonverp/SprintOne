@@ -1,9 +1,11 @@
 package com.net.SprintOne;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import com.net.SprintOne.model.*;
-import com.net.SprintOne.repositories.*;
+import com.net.SprintOne.model.Role;
+import com.net.SprintOne.model.User;
+import com.net.SprintOne.model.User_Role;
+import com.net.SprintOne.repositories.RoleRepository;
+import com.net.SprintOne.repositories.UserRepository;
+import com.net.SprintOne.repositories.UserRoleRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -11,8 +13,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 @ActiveProfiles("test")
 @DataJpaTest

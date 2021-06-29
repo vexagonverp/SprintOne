@@ -2,109 +2,56 @@ package com.net.SprintOne.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 import java.util.UUID;
 
-@Entity(name="Employee")
-@Table(name="employeesdetail",
-        uniqueConstraints = {
-                @UniqueConstraint(name="id_number_unique",columnNames = "id_number"),
-                @UniqueConstraint(name="cell_phone_unique",columnNames = "cell_phone")
-        }
-)
-public class Employee implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(
-            name="id",
-            updatable = false
-    )
+public class EmployeeDto implements Serializable {
+
     private long id;
-    @Column(
-            name = "id_number",
-            updatable = false,
-            nullable = false
-    )
+
     private UUID id_number;
-    @Column(
-            name="full_name",
-            length = 50
-    )
+
     private String full_name;
-    @Column(
-            name="address",
-            length = 50
-    )
+
     private String address;
-    @Column(
-            name="department",
-            length = 50
-    )
+
     private String department;
-    @Column(
-            name="gender",
-            length = 50
-    )
+
     private String gender;
-    @Column(
-            name="job_title",
-            length = 50
-    )
+
     private String job_title;
-    @Column(
-            name="place_of_birth",
-            length = 50
-    )
+
     private String place_of_birth;
-    @Column(
-            name="race",
-            length = 50
-    )
+
     private String race;
-    @Column(
-            name="religion",
-            length = 50
-    )
+
     private String religion;
-    @Column(
-            name="birth_day"
-    )
+
     private Date birth_day;
-    @Column(
-            name="contracted_date"
-    )
+
     private Date contracted_date;
-    @Column(
-            name="start_date"
-    )
+
     private Date start_date;
-    @Column(
-            name="cell_phone"
-    )
+
     private int cell_phone;
 
 
-    @ManyToOne(cascade={CascadeType.ALL})
-    @JoinColumn(name="manager_id")
+
     private Employee manager_id;
 
-    @OneToMany(mappedBy="manager_id")
-    private Set<Employee> subordinates;
 
-    @OneToOne(cascade = CascadeType.ALL, optional = false)
-    @JoinColumn(name = "id")
-    @MapsId
+    private Set<EmployeeDto> subordinates;
+
     @JsonIgnore
-    private User user;
+    private UserDto user;
 
-    public User getUser() {
+    public UserDto getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(UserDto user) {
         this.user = user;
     }
 
@@ -228,24 +175,24 @@ public class Employee implements Serializable {
         this.manager_id = manager_id;
     }
 
-    public Set<Employee> getSubordinates() {
+    public Set<EmployeeDto> getSubordinates() {
         return subordinates;
     }
 
-    public void setSubordinates(Set<Employee> subordinates) {
+    public void setSubordinates(Set<EmployeeDto> subordinates) {
         this.subordinates = subordinates;
     }
 
-    public Employee(){
+    public EmployeeDto(){
 
     }
-    public Employee(User user,int cell_phone) {
+    public EmployeeDto(int cell_phone) {
         this.cell_phone = cell_phone;
-        this.user = user;
         this.id_number = UUID.randomUUID();//chance of encountering duplicate is rarer than getting hit by meteor.
     }
 
-    public Employee(String full_name, String address, String department, String gender, String job_title, String place_of_birth, String race, String religion, Date birth_day, Date contracted_date, Date start_date, int cell_phone) {
+    public EmployeeDto(String full_name, String address, String department, String gender, String job_title, String place_of_birth, String race, String religion, Date birth_day, Date contracted_date, Date start_date, int cell_phone) {
+        this.id_number = UUID.randomUUID();
         this.full_name = full_name;
         this.address = address;
         this.department = department;

@@ -2,7 +2,14 @@ package com.net.SprintOne;
 
 import com.github.javafaker.Faker;
 import com.net.SprintOne.model.*;
-import com.net.SprintOne.repositories.*;
+import com.net.SprintOne.repositories.EmployeeRepository;
+import com.net.SprintOne.repositories.RoleRepository;
+import com.net.SprintOne.repositories.UserRepository;
+import com.net.SprintOne.repositories.UserRoleRepository;
+import com.net.SprintOne.service.serviceImpl.ConvertServiceImpl;
+import com.net.SprintOne.service.serviceImpl.EmployeeServiceImpl;
+import com.net.SprintOne.service.serviceImpl.RoleServiceImpl;
+import com.net.SprintOne.service.serviceImpl.UserServiceImpl;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -25,30 +32,42 @@ public class SprintOneApplication {
 	public ModelMapper modelMapper(){
 		return new ModelMapper();
 	}
+	@Bean
+	public ConvertServiceImpl convertService(){ return new ConvertServiceImpl();}
 	@Profile("!test")
 	@Bean
 	CommandLineRunner commandLineRunner(
-			UserRepository userRepository,
-			RoleRepository roleRepository,
-			UserRoleRepository userRoleRepository,
-			EmployeeRepository employeeRepository
+			UserServiceImpl userService,
+			EmployeeServiceImpl employeeService,
+			RoleServiceImpl roleService,
+			ConvertServiceImpl convertService
 			) {
 		return args -> {
 			Faker faker = new Faker();
 			Date date = new Date();
-
+			RoleDto roleDto = new RoleDto(faker.job().title());
+			Role convertRole = convertService.convertRoleDtoToEntity(roleDto);
 			for(int i = 0;i<20;i++) {
-				Role role = new Role(faker.job().title());
-				User user = new User(faker.name().fullName(), faker.name().username()+"@gmail.com", date);
+				UserDto userDto = new UserDto(faker.name().fullName(), faker.name().username()+"@gmail.com", date);
+				EmployeeDto employeeDto = new EmployeeDto(faker.random().nextInt(0,1999999999));
+				User user = convertService.convertUserDtoToEntity(userDto);
+				Employee employee = convertService.convertEmployeeDtoToEntity(employeeDto);
 				Set<Role> roles = new HashSet<>();
-				Employee employee = new Employee(user);
-				employee.setCell_phone(faker.random().nextInt(0,1999999999));
-				roles.add(role);
+				roles.add(convertRole);
+				employee.setUser(user);
 				user.setRoles(roles);
-				employeeRepository.save(employee);
-				userRepository.save(user);
-				roleRepository.save(role);
+				employeeService.save(employee);
+				userService.save(user);
+				roleService.save(convertRole);
 			}
+			/*
+			Always convert a DTO before setting a relationship
+			Example : convert RoleDto into Role
+			convert UserDto into User
+			Role.setUser(User)
+			Never give DTO a relationship however DTO can still display relationship
+			if original object had one
+			 */
 
 		};
 	}

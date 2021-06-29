@@ -5,8 +5,11 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.databind.ser.FilterProvider;
 import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
 import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
-import com.net.SprintOne.model.*;
-import com.net.SprintOne.repositories.*;
+import com.net.SprintOne.model.Role;
+import com.net.SprintOne.model.UserDto;
+import com.net.SprintOne.model.User_Role;
+import com.net.SprintOne.repositories.RoleRepository;
+import com.net.SprintOne.repositories.UserRoleRepository;
 import com.net.SprintOne.service.serviceImpl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -42,14 +45,16 @@ public class MainController {
         return objectNode;
     }
 
+    /*
     @RequestMapping(value = "/list/user", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public List<User> findByNameUser(@RequestParam(name="name", required=false, defaultValue="all") String name){
-        List<User> users = userService.findByName(name);
+    public List<UserDto> findByNameUser(@RequestParam(name="name", required=false, defaultValue="all") String name){
+        List<UserDto> users = userService.findByName(name);
         if(name.equals("all"))users= userService.findAll();
         return users;
     }
+     */
 
     @RequestMapping(value = "/list/role", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -69,19 +74,30 @@ public class MainController {
         return users_roles;
     }
 
-    @RequestMapping(value = "/list/user/exclude", method= RequestMethod.GET)
+    //http://localhost:8080/api/list/user?name=all&include=name,email
+    @RequestMapping(value = "/list/user", method= RequestMethod.GET)
     @ResponseBody
-    MappingJacksonValue getAllUsers(){
-        String[] arrayOfStrings = {"name","email"};
+    public MappingJacksonValue getAllUsers(@RequestParam(name="name", required=false, defaultValue="all") String name,
+                                           @RequestParam(name="exclude", required=false) String[] exclude,
+                                           @RequestParam(name="include", required=false) String[] include){
+
         SimpleBeanPropertyFilter simpleBeanPropertyFilter =
-                SimpleBeanPropertyFilter.serializeAllExcept("name");
-        simpleBeanPropertyFilter =
-                SimpleBeanPropertyFilter.filterOutAllExcept(arrayOfStrings);
+                SimpleBeanPropertyFilter.serializeAll();
+        if(exclude != null){
+            simpleBeanPropertyFilter =
+                    SimpleBeanPropertyFilter.serializeAllExcept(exclude);
+        }
+        if(include !=null){
+            simpleBeanPropertyFilter =
+                    SimpleBeanPropertyFilter.filterOutAllExcept(include);
+        }
 
         FilterProvider filterProvider = new SimpleFilterProvider()
                 .addFilter("userFilter", simpleBeanPropertyFilter);
 
-        List<User> userList = userService.findAll();
+        List<UserDto> userList = userService.findByName(name);
+        if(name.equals("all"))userList= userService.findAll();
+
         MappingJacksonValue mappingJacksonValue = new MappingJacksonValue(userList);
         mappingJacksonValue.setFilters(filterProvider);
 

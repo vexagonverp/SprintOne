@@ -1,7 +1,5 @@
 package com.net.SprintOne.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 
 @Entity(name="User_Role")

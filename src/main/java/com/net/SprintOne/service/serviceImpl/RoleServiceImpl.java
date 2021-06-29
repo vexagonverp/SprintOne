@@ -1,6 +1,7 @@
 package com.net.SprintOne.service.serviceImpl;
 
 import com.net.SprintOne.model.Role;
+import com.net.SprintOne.model.RoleDto;
 import com.net.SprintOne.repositories.RoleRepository;
 import com.net.SprintOne.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,19 +13,23 @@ import java.util.List;
 public class RoleServiceImpl implements RoleService {
     @Autowired
     private RoleRepository roleRepository;
+    @Autowired
+    private ConvertServiceImpl convertService;
+
+
 
     @Override
-    public List<Role> findAll(){
+    public List<RoleDto> findAll(){
         List<Role> roles = roleRepository.findAll();
-        return roles;
+        return convertService.convertRoleListToDto(roles);
     }
+
     public void save(Role role){
         roleRepository.save(role);
     }
 
-
-    public List<Role> findByName(String name){
+    public List<RoleDto> findByName(String name){
         List<Role> roles = roleRepository.findByName(name);
-        return roles;
+        return convertService.convertRoleListToDto(roles);
     }
 }
