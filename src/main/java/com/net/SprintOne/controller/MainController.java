@@ -22,7 +22,7 @@ import java.util.Date;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/list")
 public class MainController {
 
     @Autowired
@@ -75,7 +75,7 @@ public class MainController {
     }
 
     //http://localhost:8080/api/list/user?name=all&include=name,email
-    @RequestMapping(value = "/list/user", method= RequestMethod.GET)
+    @RequestMapping(value = "/user", method= RequestMethod.GET)
     @ResponseBody
     public MappingJacksonValue getAllUsers(@RequestParam(name="name", required=false, defaultValue="all") String name,
                                            @RequestParam(name="exclude", required=false) String[] exclude,

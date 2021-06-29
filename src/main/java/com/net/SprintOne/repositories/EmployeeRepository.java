@@ -1,7 +1,6 @@
 package com.net.SprintOne.repositories;
 
 import com.net.SprintOne.model.Employee;
-import com.net.SprintOne.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

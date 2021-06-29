@@ -11,6 +11,7 @@ public class UserDto implements Serializable {
 
     private long id;
     private String name;
+    private String password;
     private String email;
     private Date createdAt;
     private Date updatedAt;
@@ -32,6 +33,14 @@ public class UserDto implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getEmail() {
@@ -83,8 +92,9 @@ public class UserDto implements Serializable {
     }
 
     public UserDto(){};
-    public UserDto(String name, String email, Date updatedAt) {
+    public UserDto(String name,String password, String email, Date updatedAt) {
         this.name = name;
+        this.password = password;
         this.email = email;
         this.createdAt = new Date();
         this.updatedAt = updatedAt;

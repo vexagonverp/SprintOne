@@ -2,10 +2,6 @@ package com.net.SprintOne;
 
 import com.github.javafaker.Faker;
 import com.net.SprintOne.model.*;
-import com.net.SprintOne.repositories.EmployeeRepository;
-import com.net.SprintOne.repositories.RoleRepository;
-import com.net.SprintOne.repositories.UserRepository;
-import com.net.SprintOne.repositories.UserRoleRepository;
 import com.net.SprintOne.service.serviceImpl.ConvertServiceImpl;
 import com.net.SprintOne.service.serviceImpl.EmployeeServiceImpl;
 import com.net.SprintOne.service.serviceImpl.RoleServiceImpl;
@@ -48,7 +44,7 @@ public class SprintOneApplication {
 			RoleDto roleDto = new RoleDto(faker.job().title());
 			Role convertRole = convertService.convertRoleDtoToEntity(roleDto);
 			for(int i = 0;i<20;i++) {
-				UserDto userDto = new UserDto(faker.name().fullName(), faker.name().username()+"@gmail.com", date);
+				UserDto userDto = new UserDto(faker.name().fullName(),faker.color().name(),faker.name().username()+"@gmail.com", date);
 				EmployeeDto employeeDto = new EmployeeDto(faker.random().nextInt(0,1999999999));
 				User user = convertService.convertUserDtoToEntity(userDto);
 				Employee employee = convertService.convertEmployeeDtoToEntity(employeeDto);
