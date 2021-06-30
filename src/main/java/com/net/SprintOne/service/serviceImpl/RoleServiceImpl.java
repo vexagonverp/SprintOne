@@ -1,7 +1,7 @@
 package com.net.SprintOne.service.serviceImpl;
 
 import com.net.SprintOne.model.Role;
-import com.net.SprintOne.model.RoleDto;
+import com.net.SprintOne.dtos.RoleDto;
 import com.net.SprintOne.repositories.RoleRepository;
 import com.net.SprintOne.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;

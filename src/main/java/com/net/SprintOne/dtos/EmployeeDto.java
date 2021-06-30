@@ -1,6 +1,7 @@
-package com.net.SprintOne.model;
+package com.net.SprintOne.dtos;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.net.SprintOne.model.Employee;
 
 import java.io.Serializable;
 import java.util.Date;

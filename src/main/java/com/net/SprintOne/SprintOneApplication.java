@@ -1,6 +1,9 @@
 package com.net.SprintOne;
 
 import com.github.javafaker.Faker;
+import com.net.SprintOne.dtos.EmployeeDto;
+import com.net.SprintOne.dtos.RoleDto;
+import com.net.SprintOne.dtos.UserDto;
 import com.net.SprintOne.model.*;
 import com.net.SprintOne.service.serviceImpl.ConvertServiceImpl;
 import com.net.SprintOne.service.serviceImpl.EmployeeServiceImpl;
@@ -32,10 +35,6 @@ public class SprintOneApplication {
 	}
 	@Bean
 	public ConvertServiceImpl convertService(){ return new ConvertServiceImpl();}
-	@Bean
-	public PasswordEncoder Encoder() {
-		return new BCryptPasswordEncoder();
-	}
 	@Profile("!test")
 	@Bean
 	CommandLineRunner commandLineRunner(
@@ -51,8 +50,12 @@ public class SprintOneApplication {
 			RoleDto roleDto = new RoleDto(faker.job().title());
 			Role convertRole = convertService.convertRoleDtoToEntity(roleDto);
 			for(int i = 0;i<20;i++) {
-				UserDto userDto = new UserDto(faker.name().fullName(),bCryptPasswordEncoder.encode(faker.color().name()),faker.name().username()+"@gmail.com", date);
-				EmployeeDto employeeDto = new EmployeeDto(faker.random().nextInt(0,1999999999));
+				String username = faker.name().username();
+				UserDto userDto = new UserDto(username,bCryptPasswordEncoder.encode(faker.color().name()),username+"@gmail.com", date);
+				EmployeeDto employeeDto = new EmployeeDto(faker.name().fullName(),faker.address().fullAddress(),
+						faker.job().field(),faker.space().star()+" Sexual",faker.job().title(),faker.country().name(),
+						faker.color().name(),faker.ancient().god(),faker.date().birthday(),date,
+						date,faker.random().nextInt(0,1999999999));
 				User user = convertService.convertUserDtoToEntity(userDto);
 				Employee employee = convertService.convertEmployeeDtoToEntity(employeeDto);
 				Set<Role> roles = new HashSet<>();

@@ -1,6 +1,6 @@
 package com.net.SprintOne.service;
 
-import com.net.SprintOne.model.RoleDto;
+import com.net.SprintOne.dtos.RoleDto;
 
 import java.util.List;
 

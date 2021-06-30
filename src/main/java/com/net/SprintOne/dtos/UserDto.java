@@ -1,4 +1,4 @@
-package com.net.SprintOne.model;
+package com.net.SprintOne.dtos;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
 
@@ -92,6 +92,10 @@ public class UserDto implements Serializable {
     }
 
     public UserDto(){};
+    public UserDto(String email,String password){
+        this.email = email;
+        this.password = password;
+    }
     public UserDto(String name,String password, String email, Date updatedAt) {
         this.name = name;
         this.password = password;

@@ -1,7 +1,7 @@
 package com.net.SprintOne.service.serviceImpl;
 
 import com.net.SprintOne.model.Employee;
-import com.net.SprintOne.model.EmployeeDto;
+import com.net.SprintOne.dtos.EmployeeDto;
 import com.net.SprintOne.repositories.EmployeeRepository;
 import com.net.SprintOne.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;

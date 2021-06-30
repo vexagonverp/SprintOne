@@ -31,42 +31,42 @@ public class Employee implements Serializable {
     private UUID id_number;
     @Column(
             name="full_name",
-            length = 50
+            columnDefinition="TEXT"
     )
     private String full_name;
     @Column(
             name="address",
-            length = 50
+            columnDefinition="TEXT"
     )
     private String address;
     @Column(
             name="department",
-            length = 50
+            columnDefinition="TEXT"
     )
     private String department;
     @Column(
             name="gender",
-            length = 50
+            columnDefinition="TEXT"
     )
     private String gender;
     @Column(
             name="job_title",
-            length = 50
+            columnDefinition="TEXT"
     )
     private String job_title;
     @Column(
             name="place_of_birth",
-            length = 50
+            columnDefinition="TEXT"
     )
     private String place_of_birth;
     @Column(
             name="race",
-            length = 50
+            columnDefinition="TEXT"
     )
     private String race;
     @Column(
             name="religion",
-            length = 50
+            columnDefinition="TEXT"
     )
     private String religion;
     @Column(

@@ -1,7 +1,7 @@
 package com.net.SprintOne.service.serviceImpl;
 
 import com.net.SprintOne.model.User;
-import com.net.SprintOne.model.UserDto;
+import com.net.SprintOne.dtos.UserDto;
 import com.net.SprintOne.repositories.UserRepository;
 import com.net.SprintOne.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

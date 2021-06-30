@@ -1,6 +1,6 @@
 package com.net.SprintOne.service;
 
-import com.net.SprintOne.model.UserDto;
+import com.net.SprintOne.dtos.UserDto;
 
 import java.util.List;
 

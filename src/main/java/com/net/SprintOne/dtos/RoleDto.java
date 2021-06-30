@@ -1,4 +1,4 @@
-package com.net.SprintOne.model;
+package com.net.SprintOne.dtos;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;

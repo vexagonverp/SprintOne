@@ -1,5 +1,8 @@
 package com.net.SprintOne.service.serviceImpl;
 
+import com.net.SprintOne.dtos.EmployeeDto;
+import com.net.SprintOne.dtos.RoleDto;
+import com.net.SprintOne.dtos.UserDto;
 import com.net.SprintOne.model.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
