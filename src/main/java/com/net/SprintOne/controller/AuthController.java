@@ -39,7 +39,7 @@ public class AuthController {
     }
 
     private ResponseEntity<?> createAuthenticationToken(AuthenticationRequest request) {
-        String encodedPassword = bCryptPasswordEncoder.encode(request.getPassword());
+        String encodedPassword = request.getPassword();
 //        Authentication authentication = null;
 
         try{
