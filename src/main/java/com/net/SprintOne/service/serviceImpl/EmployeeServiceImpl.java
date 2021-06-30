@@ -31,4 +31,9 @@ public class EmployeeServiceImpl implements EmployeeService {
         return convertService.convertEmployeeListToDto(employees);
     }
 
+    public List<EmployeeDto> findByCellPhone(int phone){
+        List<Employee> employees = employeeRepository.findByCellPhone(phone);
+        return convertService.convertEmployeeListToDto(employees);
+    }
+
 }
