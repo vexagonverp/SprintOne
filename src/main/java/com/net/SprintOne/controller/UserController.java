@@ -19,7 +19,7 @@ import java.util.Date;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/api")
 public class UserController {
 
     @Autowired

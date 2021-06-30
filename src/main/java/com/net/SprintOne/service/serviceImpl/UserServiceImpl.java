@@ -36,5 +36,10 @@ public class UserServiceImpl implements UserService {
         List<User> users = userRepository.findByEmail(email);
         return convertService.convertUserListToDto(users);
     }
+
+    public User findUserByEmail(String email){
+        List<User> users = userRepository.findByEmail(email);
+        return users.get(0);
+    }
     
 }

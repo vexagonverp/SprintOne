@@ -19,6 +19,8 @@ import java.util.Map;
 public class JwtUtil implements Serializable {
     @Value("${jwt.secretkey}")
     private String SECRET_KEY;
+    @Value("${jwt.refreshExpirationDateInMs}")
+    private int REFRESH_EXPIRATION_DATE_IN_MS;
 
     // retreive username from jwt token
     public String extractUsername(String token) {
@@ -60,6 +62,13 @@ public class JwtUtil implements Serializable {
         return Jwts.builder().setClaims(claims).setSubject(username)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 *10))
+                .signWith(SignatureAlgorithm.HS256, SECRET_KEY).compact();
+    }
+
+    public String refreshToken(Map<String, Object> claims, String username) {
+        return Jwts.builder().setClaims(claims).setSubject(username)
+                .setIssuedAt(new Date(System.currentTimeMillis()))
+                .setExpiration(new Date(System.currentTimeMillis() + REFRESH_EXPIRATION_DATE_IN_MS))
                 .signWith(SignatureAlgorithm.HS256, SECRET_KEY).compact();
     }
 
