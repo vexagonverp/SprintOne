@@ -42,7 +42,8 @@ public class SprintOneApplication {
 			UserServiceImpl userService,
 			EmployeeServiceImpl employeeService,
 			RoleServiceImpl roleService,
-			ConvertServiceImpl convertService
+			ConvertServiceImpl convertService,
+			BCryptPasswordEncoder bCryptPasswordEncoder
 			) {
 		return args -> {
 			Faker faker = new Faker();
@@ -50,7 +51,7 @@ public class SprintOneApplication {
 			RoleDto roleDto = new RoleDto(faker.job().title());
 			Role convertRole = convertService.convertRoleDtoToEntity(roleDto);
 			for(int i = 0;i<20;i++) {
-				UserDto userDto = new UserDto(faker.name().fullName(),faker.color().name(),faker.name().username()+"@gmail.com", date);
+				UserDto userDto = new UserDto(faker.name().fullName(),bCryptPasswordEncoder.encode(faker.color().name()),faker.name().username()+"@gmail.com", date);
 				EmployeeDto employeeDto = new EmployeeDto(faker.random().nextInt(0,1999999999));
 				User user = convertService.convertUserDtoToEntity(userDto);
 				Employee employee = convertService.convertEmployeeDtoToEntity(employeeDto);

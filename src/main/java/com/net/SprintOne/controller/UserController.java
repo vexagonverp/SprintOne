@@ -10,16 +10,14 @@ import com.net.SprintOne.service.serviceImpl.ConvertServiceImpl;
 import com.net.SprintOne.service.serviceImpl.EmployeeServiceImpl;
 import com.net.SprintOne.service.serviceImpl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/auth")
 public class UserController {
 
     @Autowired
@@ -27,10 +25,13 @@ public class UserController {
     @Autowired
     private UserServiceImpl userService;
     @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    @Autowired
     private EmployeeServiceImpl employeeService;
     @Autowired
     private ConvertServiceImpl convertService;
 
+    @CrossOrigin
     @RequestMapping(
             value = "/signup",
             method = RequestMethod.POST)
@@ -50,6 +51,8 @@ public class UserController {
         try {
             email = payload.get("email").toString();
             password = payload.get("password").toString();
+            password = bCryptPasswordEncoder.encode(password);
+            System.out.println(password);
             fullName = payload.get("fullName").toString();
         }catch(Exception e){
             throw new Exception("Empty field");
@@ -59,7 +62,7 @@ public class UserController {
                 "There is already an account with the email address: " + email+
                         " or phone number: "+ phone);
         Date date = new Date();
-        UserDto userDto = new UserDto(fullName,email,password,date);
+        UserDto userDto = new UserDto(fullName,password,email,date);
         EmployeeDto employeeDto = new EmployeeDto(phone);
         User user = convertService.convertUserDtoToEntity(userDto);
         Employee employee = convertService.convertEmployeeDtoToEntity(employeeDto);
