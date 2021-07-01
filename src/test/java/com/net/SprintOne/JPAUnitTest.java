@@ -12,6 +12,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.ActiveProfiles;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -48,12 +49,13 @@ public class JPAUnitTest {
     @Test
     public void userStoring() {
         Date date = new Date();
-        User user = userRepository.save(new User("admin","123","admin@gmail.com",date));
+        LocalDateTime localDate = LocalDateTime.now();
+        User user = userRepository.save(new User("admin","123","admin@gmail.com",localDate));
 
         assertThat(user).hasFieldOrPropertyWithValue("name", "admin");
         assertThat(user).hasFieldOrPropertyWithValue("email", "admin@gmail.com");
         assertThat(user).hasFieldOrPropertyWithValue("createdAt", date);
-        assertThat(user).hasFieldOrPropertyWithValue("updatedAt", date);
+        assertThat(user).hasFieldOrPropertyWithValue("updatedAt", localDate);
     }
 
     @Test

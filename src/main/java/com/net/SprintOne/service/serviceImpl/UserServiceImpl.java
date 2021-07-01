@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -39,6 +40,11 @@ public class UserServiceImpl implements UserService {
 
     public User findUserByEmail(String email){
         List<User> users = userRepository.findByEmail(email);
+        return users.get(0);
+    }
+
+    public User findUserByToken(UUID token){
+        List<User> users = userRepository.findByToken(token);
         return users.get(0);
     }
     

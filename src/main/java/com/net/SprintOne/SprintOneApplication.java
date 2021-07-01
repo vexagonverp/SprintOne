@@ -16,8 +16,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -49,9 +49,12 @@ public class SprintOneApplication {
 			Date date = new Date();
 			RoleDto roleDto = new RoleDto(faker.job().title());
 			Role convertRole = convertService.convertRoleDtoToEntity(roleDto);
+			String email ="";
 			for(int i = 0;i<20;i++) {
 				String username = faker.name().username();
-				UserDto userDto = new UserDto(username,bCryptPasswordEncoder.encode(faker.color().name()),username+"@gmail.com", date);
+				String color = faker.color().name();
+				//System.out.println(color);
+				UserDto userDto = new UserDto(username,bCryptPasswordEncoder.encode(color),username+"@gmail.com", LocalDateTime.now());
 				EmployeeDto employeeDto = new EmployeeDto(faker.name().fullName(),faker.address().fullAddress(),
 						faker.job().field(),faker.space().star()+" Sexual",faker.job().title(),faker.country().name(),
 						faker.color().name(),faker.ancient().god(),faker.date().birthday(),date,
@@ -62,10 +65,14 @@ public class SprintOneApplication {
 				roles.add(convertRole);
 				employee.setUser(user);
 				user.setRoles(roles);
+				email = username;
 				employeeService.save(employee);
 				userService.save(user);
 				roleService.save(convertRole);
 			}
+			User editUser = userService.findUserByEmail(email+"@gmail.com");
+			editUser.setName("this person now have a new name");
+			userService.save(editUser);
 			/*
 			Always convert a DTO before setting a relationship
 			Example : convert RoleDto into Role

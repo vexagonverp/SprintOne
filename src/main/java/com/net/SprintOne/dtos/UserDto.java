@@ -3,8 +3,10 @@ package com.net.SprintOne.dtos;
 import com.fasterxml.jackson.annotation.JsonFilter;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Set;
+import java.util.UUID;
 
 @JsonFilter("userFilter")
 public class UserDto implements Serializable {
@@ -13,11 +15,12 @@ public class UserDto implements Serializable {
     private String name;
     private String password;
     private String email;
-    private Date createdAt;
-    private Date updatedAt;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
     private boolean activate;
     private EmployeeDto employeeId;
     private Set<RoleDto> roles;
+    private UUID token;
 
     public long getId() {
         return id;
@@ -51,19 +54,19 @@ public class UserDto implements Serializable {
         this.email = email;
     }
 
-    public Date getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
-    public Date getUpdatedAt() {
+    public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(Date updatedAt) {
+    public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
 
@@ -91,16 +94,24 @@ public class UserDto implements Serializable {
         this.roles = roles;
     }
 
+    public UUID getToken() {
+        return token;
+    }
+
+    public void setToken(UUID token) {
+        this.token = token;
+    }
+
     public UserDto(){};
     public UserDto(String email,String password){
         this.email = email;
         this.password = password;
     }
-    public UserDto(String name,String password, String email, Date updatedAt) {
+    public UserDto(String name, String password, String email, LocalDateTime updatedAt) {
         this.name = name;
         this.password = password;
         this.email = email;
-        this.createdAt = new Date();
+        this.createdAt = LocalDateTime.now();
         this.updatedAt = updatedAt;
     }
 
