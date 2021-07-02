@@ -91,7 +91,6 @@ public class AuthController {
             method = RequestMethod.POST)
     public ResponseEntity<?> register(@RequestBody Map<String, Object> payload)
             throws Exception {
-        System.out.println(payload);
         int phone;
         try{
             String rawNum = payload.get("phone").toString();
@@ -107,7 +106,6 @@ public class AuthController {
             email = payload.get("email").toString();
             password = payload.get("password").toString();
             password = bCryptPasswordEncoder.encode(password);
-            System.out.println(password);
             fullName = payload.get("fullName").toString();
         }catch(Exception e){
             return new ResponseEntity<>(new Exception("Missing value field !")
