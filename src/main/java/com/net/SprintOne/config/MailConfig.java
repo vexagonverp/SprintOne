@@ -26,7 +26,7 @@ public class MailConfig {
         Properties properties = new Properties();
         properties.setProperty("mail.transport.protocol", "smtp");
         properties.setProperty("mail.smtp.ssl.trust", "smtp.gmail.com");
-        properties.setProperty("mail.smtp.auth", "true");
+        properties.setProperty("mail.smtp.auth", "false");
         properties.setProperty("mail.smtp.starttls.enable", "true");
         properties.setProperty("mail.debug", "false");
         return properties;
