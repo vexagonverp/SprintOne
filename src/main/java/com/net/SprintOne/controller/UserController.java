@@ -6,9 +6,11 @@ import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import com.net.SprintOne.dtos.UserDto;
 import com.net.SprintOne.service.serviceImpl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,4 +62,6 @@ public class UserController {
         mappingJacksonValue.setFilters(filterProvider);
         return mappingJacksonValue;
     }
+
+
 }

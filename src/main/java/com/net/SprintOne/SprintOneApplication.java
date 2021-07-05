@@ -35,6 +35,7 @@ public class SprintOneApplication {
 	}
 	@Bean
 	public ConvertServiceImpl convertService(){ return new ConvertServiceImpl();}
+
 	@Profile("!test")
 	@Bean
 	CommandLineRunner commandLineRunner(
