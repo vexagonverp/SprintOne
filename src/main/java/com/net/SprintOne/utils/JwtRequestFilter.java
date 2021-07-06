@@ -1,5 +1,6 @@
 package com.net.SprintOne.utils;
 
+import com.net.SprintOne.dtos.CustomUserDetails;
 import com.net.SprintOne.service.JwtUserDetailsService;
 import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.beans.factory.annotation.Autowired;
