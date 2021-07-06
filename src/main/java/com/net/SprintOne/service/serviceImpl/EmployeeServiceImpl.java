@@ -47,9 +47,14 @@ public class EmployeeServiceImpl implements EmployeeService {
         List<Employee> employees = employeeRepository.findByCellPhone(phone);
         return convertService.convertEmployeeListToDto(employees);
     }
-
-    public List<EmployeeDto> findBySearch(String search, Pageable pageable){
-        List<Employee> employees = employeeRepository.findBySearch(search, pageable);
+    @Override
+    public List<EmployeeDto> findBySearchActive(String search, Pageable pageable){
+        List<Employee> employees = employeeRepository.findBySearchActive(search, pageable);
+        return convertService.convertEmployeeListToDto(employees);
+    }
+    @Override
+    public List<EmployeeDto> findBySearchDisabled(String search, Pageable pageable){
+        List<Employee> employees = employeeRepository.findBySearchDisabled(search, pageable);
         return convertService.convertEmployeeListToDto(employees);
     }
 

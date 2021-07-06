@@ -23,6 +23,7 @@ public class User implements Serializable {
             updatable = false
     )
     private long id;
+
     @OneToOne( mappedBy = "user")
     private Employee employeeId;
     @Column(

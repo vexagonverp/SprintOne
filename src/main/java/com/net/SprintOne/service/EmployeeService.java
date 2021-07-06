@@ -8,5 +8,6 @@ import java.util.List;
 public interface EmployeeService {
     List<EmployeeDto> findAll();
     List<EmployeeDto> findAll(Pageable pageable);
-    List<EmployeeDto> findBySearch(String search, Pageable pageable);
+    List<EmployeeDto> findBySearchActive(String search, Pageable pageable);
+    List<EmployeeDto> findBySearchDisabled(String search, Pageable pageable);
 }

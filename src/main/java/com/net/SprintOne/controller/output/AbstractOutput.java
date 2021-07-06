@@ -1,10 +1,10 @@
 package com.net.SprintOne.controller.output;
 import org.springframework.data.domain.Pageable;
 public class AbstractOutput{
-    private int currentPage;
-    private int totalItems;
     private int count;
     private int pageLimit;
+    private int currentPage;
+    private int totalItems;
     public int getCurrentPage(){
         return currentPage;
     }

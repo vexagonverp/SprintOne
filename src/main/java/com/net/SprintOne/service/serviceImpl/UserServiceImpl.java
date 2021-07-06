@@ -5,8 +5,14 @@ import com.net.SprintOne.dtos.UserDto;
 import com.net.SprintOne.repositories.UserRepository;
 import com.net.SprintOne.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.UUID;
 
@@ -16,7 +22,8 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
     @Autowired
     private ConvertServiceImpl convertService;
-
+    @Autowired
+    private JavaMailSender javaMailSender;
 
     @Override
     public List<UserDto> findAll(){
@@ -38,7 +45,7 @@ public class UserServiceImpl implements UserService {
         return convertService.convertUserListToDto(users);
     }
 
-    public User findUserByEmail(String email){
+    public User findUserByEmail(String email) {
         List<User> users = userRepository.findByEmail(email);
         return users.get(0);
     }

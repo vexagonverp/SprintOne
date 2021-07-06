@@ -20,8 +20,10 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long>{
     @Query("FROM Employee WHERE cell_phone=:phone")
     List<Employee> findByCellPhone(int phone);
 
-    String query = "FROM Employee WHERE id LIKE CONCAT('%',:search,'%')OR fullname LIKE CONCAT('%',:search,'%')";
-    @Query(query)
-    List<Employee> findBySearch(String search, Pageable pageable);
+    String query = "SELECT e FROM employeesdetail e JOIN users u ON e.id = u.id WHERE e.id LIKE %?1% OR e.fullname LIKE %?1% ";
+    @Query(value = query + "AND u.active = true", nativeQuery = true)
+    List<Employee> findBySearchActive(String search, Pageable pageable);
 
+    @Query(value =query + "AND u.active = false", nativeQuery = true)
+    List<Employee> findBySearchDisabled(String search, Pageable pageable);
 }

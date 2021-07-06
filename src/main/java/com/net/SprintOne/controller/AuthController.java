@@ -75,7 +75,7 @@ public class AuthController {
                     new UsernamePasswordAuthenticationToken(userDto.getEmail(), encodedPassword)
             );
         } catch (BadCredentialsException e) {
-            return new ResponseEntity<>(new BadCredentialsException("Incorrect username or password")
+            return new ResponseEntity<>("Incorrect username or password"
                     , HttpStatus.FORBIDDEN);
         }
 
@@ -127,6 +127,7 @@ public class AuthController {
         }catch(Exception e){
             return new ResponseEntity<>(new Exception("Couldn't save to database"),HttpStatus.FORBIDDEN);
         }
+
         ObjectNode objectNode = mapper.createObjectNode();
         objectNode.put("status", true);
         objectNode.put("message", "Account creation successful");
@@ -200,6 +201,4 @@ public class AuthController {
         }
         return false;
     }
-
-
 }

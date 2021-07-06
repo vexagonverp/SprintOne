@@ -27,34 +27,35 @@ public class EmployeeController{
     //http://localhost:8080/api/list/employee?field=name&search=all&include=id,name
     @RequestMapping(value = "/employee", method= RequestMethod.GET)
     @ResponseBody
-    public MappingJacksonValue getAllEmployees(@RequestParam(name= "field", required=false, defaultValue="name") String field,
+    public MappingJacksonValue getAllEmployees(@RequestParam(name= "filter", required=false, defaultValue="all") String filter,
                                            @RequestParam(name="search", required=false, defaultValue="all") String search,
                                            @RequestParam(name="include", required=false) String[] include,
                                            @RequestParam(name="exclude", required=false) String[] exclude,
-                                           @RequestParam(value="limit", required=false) Integer limit){
+                                           @RequestParam(value= "page", required = false) Integer page,
+                                           @RequestParam(value= "limit", required=false) Integer limit){
 
         EmployeeOutput result = new EmployeeOutput();
         List<EmployeeDto> employeeList= null;
-        if(limit != null) {
-            result.setT((int) Math.ceil((double) (employeeService.totalItem()) / limit));
-			result.setPage(page);
+        int count = (int) Math.ceil((double) (employeeService.totalItem()));
+        result.setCount(count);
+        if(page != null && limit != null) {
+            result.setPageLimit((count / limit)+1);
+            result.setCurrentPage(page);
 			Pageable pageable = PageRequest.of(page - 1, limit);
-            switch(field){
-                case "search":
-                    employeeList = employeeService.findBySearch(search, pageable);
+            switch(filter){
+                case "active":
+                    employeeList = employeeService.findBySearchActive(search, pageable);
                     break;
-                case "name":
-                    employeeList = employeeService.findByName(search, pageable);
+                case "disabled":
+                    employeeList = employeeService.findBySearchDisabled(search, pageable);
                     break;
-                case "id":
-                    employeeList = employeeService.findById(Long.parseLong(search), pageable);
-                    break;
-                case "all":
+                default:
                     employeeList = employeeService.findAll(pageable);
                     break;
             }
-            result.setListResult(employeeList);
-			
+            count = employeeList.size();            
+            result.setTotalItems(count);
+            result.setListResult(employeeList);			
 		} else {
 			result.setListResult(employeeService.findAll());
 		}
