@@ -31,15 +31,18 @@ public class EmployeeController{
                                            @RequestParam(name="search", required=false, defaultValue="all") String search,
                                            @RequestParam(name="include", required=false) String[] include,
                                            @RequestParam(name="exclude", required=false) String[] exclude,
-                                           @RequestParam(value="page", required=false) Integer page,
                                            @RequestParam(value="limit", required=false) Integer limit){
 
         EmployeeOutput result = new EmployeeOutput();
         List<EmployeeDto> employeeList= null;
-        if(page != null && limit != null) {
+        if(limit != null) {
+            result.setT((int) Math.ceil((double) (employeeService.totalItem()) / limit));
 			result.setPage(page);
 			Pageable pageable = PageRequest.of(page - 1, limit);
             switch(field){
+                case "search":
+                    employeeList = employeeService.findBySearch(search, pageable);
+                    break;
                 case "name":
                     employeeList = employeeService.findByName(search, pageable);
                     break;
@@ -50,7 +53,8 @@ public class EmployeeController{
                     employeeList = employeeService.findAll(pageable);
                     break;
             }
-			result.setTotalPage((int) Math.ceil((double) (employeeService.totalItem()) / limit));
+            result.setListResult(employeeList);
+			
 		} else {
 			result.setListResult(employeeService.findAll());
 		}
@@ -68,7 +72,7 @@ public class EmployeeController{
         FilterProvider filterProvider = new SimpleFilterProvider()
                 .addFilter("employeeFilter", simpleBeanPropertyFilter);
     
-        MappingJacksonValue mappingJacksonValue = new MappingJacksonValue(employeeList);
+        MappingJacksonValue mappingJacksonValue = new MappingJacksonValue(result);
         mappingJacksonValue.setFilters(filterProvider);
         return mappingJacksonValue;
     }
